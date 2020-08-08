@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import Axios from 'axios';
-import Menu from '../components/Menu'
+
+// components
+import Menu from '../components/Menu';
+import HeaderHome from '../components/HeaderHome';
+import LeftSidebar from '../components/LeftSidebar';
 
 // image
-import addIcon from '../assets/img/add.png';
-import historyIcon from '../assets/img/clipboard.png';
-import forkIcon from '../assets/img/fork.png';
-import searchIcon from '../assets/img/magnifying-glass.png';
 import logoCart from '../assets/img/food.png';
 
 class Home extends Component {
+   constructor() {
+      super();
+   }
+
    state = {
-      productCounter: 0,
       menus: [],
+      cart: [
+         {
+            product_name: "Esspresso",
+            image: "https://week3-pos.netlify.app/assets/firdaus-roslan-pN769u0KHNA-unsplash.png",
+            price: 5000
+         }
+      ]
    };
 
    componentDidMount = () => {
@@ -28,66 +37,75 @@ class Home extends Component {
    }
 
    render() {
+      const getCart = () => {
+         if (this.state.cart.length) {
+            return (
+               this.state.cart.map((item) => {
+                  return (
+                     <div className="row">
+                        <div className="col">
+                           <img src={item.image} className="w-50" alt="" />
+                           <h5>{item.product_name}</h5>
+                           <div className="btn-group mt-auto" role="group" aria-label="Basic example">
+                              <button type="button" className="btn btn-success ">-</button>
+                              <button type="button" className="btn btn-outline-success">1</button>
+                              <button type="button" className="btn btn-success ">+</button>
+                           </div>
+                           <h6>Rp {item.price}</h6>
+                        </div>
+                     </div>
+                  )
+               })
+            )
+         } else {
+            return (
+               <>
+                  <img src={logoCart} className="w-50" alt="" />
+                  <h5>Your cart is empty</h5>
+                  <p className="text-secondary">Please add some items from the menu</p>
+               </>
+            )
+         }
+      }
       return (
          <>
             <div className="container-fluid">
                <div className="row">
                   <div className="col-md-8">
-                     {/* Header */}
-                     <div className="row navbar-light bg-white shadow p-3 border-bottom">
-                        <div className="col-1">
-                           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
-                              aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                              <span className="navbar-toggler-icon"></span>
-                           </button>
-                        </div>
-                        <div className="col-10 my-auto">
-                           <h4 className="text-center">Food Item</h4>
-                           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-                              <p>hehehe</p>
-                           </div>
-                        </div>
-                        <div className="col-1 my-auto">
-                           <a href="#"><img src={searchIcon} width="25" alt="" /></a>
-                        </div>
-                     </div>
-                     {/* end of header */}
+                     <HeaderHome />
                      <div className="row">
-                        {/* left sidebar */}
-                        <div className="col-lg-1 bg-white shadow-sm">
-                           <div className="row flex-lg-column justify-content-around py-2">
-                              <div className="col-auto my-lg-4">
-                                 <a href="#"><img src={forkIcon} className="w-75" alt="" /></a>
-                              </div>
-                              <div className="col-auto my-lg-4">
-                                 <Link to="/history">
-                                    <img src={historyIcon} className="w-75" alt="" />
-                                 </Link>
-                              </div>
-                              <div className="col-auto my-lg-4">
-                                 <a href="#"><img src={addIcon} className="w-75" alt="" /></a>
-                              </div>
+                        <LeftSidebar />
+                        {/* <Menu
+                           arrMenus={this.state.menus}
+                        /> */}
+                        <div className="col-lg-11">
+                           <div className="row py-3">
+                              {this.state.menus.map((product) => {
+                                 return (
+                                    <div className="col-6 col-sm-4 item-menu">
+                                       <img src={product.image} className="card-img-top " alt="..." id={product.product_id} />
+                                       <h5 ref={this.newCart} id={product.product_id}>{product.product_name}</h5>
+                                       <h5 id={product.product_id} className="font-weight-bold">Rp. {product.price}</h5>
+                                    </div>
+                                 )
+                              })}
                            </div>
                         </div>
-                        {/* end of left sidebar */}
-                        {/* main content */}
-                        <Menu arrMenus={this.state.menus} />
-
-                        {/* end of main content */}
+                        {/* end of menu */}
                      </div>
                   </div>
                   {/* cart */}
                   <div className="col-md-4 border-left border-top">
                      <div className="row navbar-light bg-white p-3 border-bottom">
                         <div className="col text-center">
-                           <h4 className="">Cart <span className="badge badge-pill badge-info">{this.state.productCounter}</span></h4>
+                           <h4 className="">Cart
+                           <span className="badge badge-pill badge-info">{this.state.cart.length}</span>
+                           </h4>
                         </div>
                      </div>
                      <div className="row h-100"> {/* masalah disini (h-100) */}
                         <div className="col bg-white text-center border-top">
-                           <img src={logoCart} className="w-50" alt="" />
-                           <h5>Your cart is empty</h5>
-                           <p className="text-secondary">Please add some items from the menu</p>
+                           {getCart()}
                         </div>
                      </div>
                   </div>
