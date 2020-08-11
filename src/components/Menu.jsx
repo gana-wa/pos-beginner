@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
+import './styles/Menu.css';
+// import tick from '../assets/img/tick.png';
 
 class Menu extends Component {
-    state = {}
     render() {
-        const { arrMenus } = this.props;
         return (
-            <>
-                <div className="col-lg-11">
-                    <div className="row py-3">
-                        {arrMenus.map((product) => {
-                            return (
-                                <div className="col-6 col-sm-4 item-menu" onClick>
-                                    <img src={product.image} className="card-img-top " alt="..." id={product.product_id} />
-                                    <h5 id={product.product_id}>{product.product_name}</h5>
-                                    <h5 id={product.product_id} className="font-weight-bold">Rp. {product.price}</h5>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
-            </>
+            <div className="col-6 col-sm-4 item-menu">
+                <img src={this.props.image} className="card-img-top" onClick={this.props.handleClick} alt="..." />
+
+                <h5>{this.props.product_name}</h5>
+                <h5 className="font-weight-bold">Rp. {this.props.price}</h5>
+            </div>
         );
     }
 }

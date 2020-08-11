@@ -5,41 +5,23 @@ import Axios from 'axios';
 import Menu from '../components/Menu';
 import HeaderHome from '../components/HeaderHome';
 import LeftSidebar from '../components/LeftSidebar';
+import RightSidebar from '../components/RightSidebar';
 
-// image
-import logoCart from '../assets/img/food.png';
 
 class Home extends Component {
    constructor() {
       super();
+      this.state = {
+         menus: [],
+         cart: [
+
+         ],
+         totalPrice: 0,
+         isChecked: false,
+      }
    }
 
-   state = {
-      menus: [],
-      cart: [
-         {
-            product_name: "Cappucino",
-            image: "https://week3-pos.netlify.app/assets/firdaus-roslan-pN769u0KHNA-unsplash.png",
-            price: 5000,
-            quantity: 2
-         },
-         {
-            product_name: "Esspresso",
-            image: "https://week3-pos.netlify.app/assets/jeremy-ricketts-6ZnhM-xBpos-unsplash.png",
-            price: 10000,
-            quantity: 3
-         },
-         {
-            product_name: "Black Forest",
-            image: "https://week3-pos.netlify.app/assets/blackforest.png",
-            price: 30000,
-            quantity: 1
-         }
-      ],
-      totalPrice: 0
-   };
-
-   componentDidMount = () => {
+   fetchAllData = () => {
       const URLString = "http://localhost:7000/products";
       Axios.get(URLString)
          .then((res) => {
@@ -50,73 +32,31 @@ class Home extends Component {
          .catch(err => console.log(err))
    }
 
-   showCart = () => {
-      if (this.state.cart.length) {
-         return <>
-            {this.state.cart.map((item) => {
-               return (
-                  <div className="row my-5">
-                     <div className="col">
-                        <img src={item.image} className="w-75 rounded-lg" alt="" />
-                     </div>
-                     <div className="col">
-                        <h5>{item.product_name}</h5>
-                        <div className="btn-group mt-auto" role="group" aria-label="Basic example">
-                           <button type="button" className="btn btn-success">-</button>
-                           <h5 className="m-2">{item.quantity}</h5>
-                           <button type="button" className="btn btn-success" onClick={
-                              this.handleIncrementQuantity
-                           } >+</button>
-                        </div>
-                     </div>
-                     <div className="col d-flex">
-                        <h6 className="mt-auto ml-auto">Rp {item.price * item.quantity}</h6>
-                     </div>
-                  </div>
-               )
-            })}
-            <div className="row mx-2">
-               <div className="col d-flex">
-                  <h4 className="mr-auto font-weight-bold">Total :</h4>
-               </div>
+   componentDidMount = () => {
+      this.fetchAllData();
+   }
 
-               <div className="col d-flex">
-                  <h4 className="ml-auto font-weight-bold">Rp {this.state.totalPrice}*</h4>
-               </div>
-            </div>
-            <div className="row mx-2">
-               <div className="col d-flex">
-                  <p className="mr-auto">*Belum termasuk ppn</p>
-               </div>
-            </div>
-            <div className="row mx-2 my-2">
-               <div className="col">
-                  <button
-                     type="button"
-                     className="btn btn-info btn-block btn-lg">
-                     Checkout
-                  </button>
-               </div>
-            </div>
-            <div className="row mx-2 my-2">
-               <div className="col">
-                  <button
-                     type="button"
-                     className="btn btn-danger btn-block btn-lg">
-                     Cancel
-                  </button>
-               </div>
-            </div>
-         </>
+   handleClick = (index) => {
+      const { menus } = this.state;
+      const cart = [...this.state.cart];
+      // find 
+      let idClicked = menus[index].id;
+      if (cart.length === 0) {
+         cart.push(menus[index]);
+         cart[0].quantity = 1
       } else {
-         return (
-            <>
-               <img src={logoCart} className="w-50" alt="" />
-               <h5>Your cart is empty</h5>
-               <p className="text-secondary">Please add some items from the menu</p>
-            </>
-         )
+         const updatedCart = cart.findIndex(item => item.id === idClicked);
+         console.log(updatedCart, 'pertama');
+         if (updatedCart === -1) {
+            cart.push(menus[index]);
+            cart[index].quantity = 1;
+         } else {
+            cart.splice(updatedCart, 1)
+         }
+         console.log(cart, 'kedua');
       }
+
+      this.setState({ cart })
    }
 
    render() {
@@ -128,18 +68,17 @@ class Home extends Component {
                      <HeaderHome />
                      <div className="row">
                         <LeftSidebar />
-                        {/* <Menu
-                           arrMenus={this.state.menus}
-                        /> */}
                         <div className="col-lg-11">
                            <div className="row py-3">
-                              {this.state.menus.map((product) => {
+                              {this.state.menus.map((product, index) => {
                                  return (
-                                    <div className="col-6 col-sm-4 item-menu">
-                                       <img src={product.image} className="card-img-top " alt="..." id={product.product_id} />
-                                       <h5 ref={this.newCart} id={product.product_id}>{product.product_name}</h5>
-                                       <h5 id={product.product_id} className="font-weight-bold">Rp. {product.price}</h5>
-                                    </div>
+                                    <Menu
+                                       image={product.image}
+                                       product_name={product.product_name}
+                                       price={product.price}
+                                       handleClick={() => this.handleClick(index)}
+                                       isChecked={this.state.isChecked}
+                                    />
                                  )
                               })}
                            </div>
@@ -148,20 +87,10 @@ class Home extends Component {
                      </div>
                   </div>
                   {/* cart */}
-                  <div className="col-md-4 border-left border-top">
-                     <div className="row navbar-light bg-white p-3 border-bottom">
-                        <div className="col text-center">
-                           <h4 className="">Cart
-                           <span className="badge badge-pill badge-info">{this.state.cart.length}</span>
-                           </h4>
-                        </div>
-                     </div>
-                     <div className="row h-100"> {/* masalah disini (h-100) */}
-                        <div className="col bg-white text-center border-top">
-                           {this.showCart()}
-                        </div>
-                     </div>
-                  </div>
+                  <RightSidebar
+                     cart={this.state.cart}
+                     totalPrice={this.state.totalPrice}
+                  />
                   {/* end of cart */}
                </div>
             </div>

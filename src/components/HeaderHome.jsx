@@ -19,7 +19,7 @@ class HeaderHome extends Component {
                     </div>
                 </div>
                 <div className="col-1 my-auto">
-                    <a href="#"><img src={searchIcon} width="25" alt="" /></a>
+                    <img src={searchIcon} width="25" alt="" />
                 </div>
             </div>
         );

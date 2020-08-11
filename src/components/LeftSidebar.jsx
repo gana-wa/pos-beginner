@@ -10,7 +10,7 @@ const LeftSidebar = () => {
         <div className="col-lg-1 bg-white shadow-sm">
             <div className="row flex-lg-column justify-content-around py-2">
                 <div className="col-auto my-lg-4">
-                    <a href="#"><img src={forkIcon} className="w-75" alt="" /></a>
+                    <img src={forkIcon} className="w-75" alt="" />
                 </div>
                 <div className="col-auto my-lg-4">
                     <Link to="/history">
@@ -18,7 +18,7 @@ const LeftSidebar = () => {
                     </Link>
                 </div>
                 <div className="col-auto my-lg-4">
-                    <a href="#"><img src={addIcon} className="w-75" alt="" /></a>
+                    <img src={addIcon} className="w-75" alt="" />
                 </div>
             </div>
         </div>
