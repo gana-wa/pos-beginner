@@ -40,7 +40,7 @@ class Home extends Component {
          return item.product_id === id;
       });
       if (index >= 0) {
-         this.state.carts.splice(index, 1);
+         this.state.carts.splice(index);//hapus data pada array
          this.setState({
             carts: this.state.carts
          })
@@ -53,32 +53,51 @@ class Home extends Component {
             image: img,
          };
          this.setState({
-            carts: this.state.carts.concat(newCart)
+            carts: this.state.carts.concat(newCart),
          });
       }
    };
 
-   // handleClick = (index) => {
-   //    const { menus } = this.state;
-   //    const cart = [...this.state.cart];
-   //    // find 
-   //    let idClicked = menus[index].id;
-   //    if (cart.length === 0) {
-   //       cart.push(menus[index]);
-   //       cart[0].quantity = 1
-   //    } else {
-   //       const updatedCart = cart.findIndex(item => item.id === idClicked);
-   //       console.log(updatedCart, 'pertama');
-   //       if (updatedCart === -1) {
-   //          cart.push(menus[index]);
-   //          cart[index].quantity = 1;
-   //       } else {
-   //          cart.splice(updatedCart, 1)
-   //       }
-   //       console.log(cart, 'kedua');
-   //    }
-   //    this.setState({ cart });
-   // }
+   handleEmptyCart = () => {
+      this.setState({
+         carts: []
+      })
+   };
+
+   handleIncreaseQty = (id) => {
+      const index = this.state.carts.findIndex((item) => {
+         return item.product_id === id;
+      })
+      let newCart = [...this.state.carts]
+      newCart[index] = {
+         ...newCart[index],
+         quantity: this.state.carts[index].quantity + 1
+      }
+      this.setState({
+         carts: newCart
+      })
+   };
+
+   handleDecreaseQty = (id) => {
+      const index = this.state.carts.findIndex((item) => {
+         return item.product_id === id;
+      })
+      let newCart = [...this.state.carts]
+      newCart[index] = {
+         ...newCart[index],
+         quantity: this.state.carts[index].quantity - 1
+      }
+      if (newCart[index].quantity === 0) {
+         this.state.carts.splice(index);//hapus data pada array
+         this.setState({
+            carts: this.state.carts
+         })
+      } else {
+         this.setState({
+            carts: newCart
+         })
+      }
+   };
 
    render() {
       return (
@@ -89,37 +108,23 @@ class Home extends Component {
                      <HeaderHome />
                      <div className="row">
                         <LeftSidebar />
-                        {/* <div className="col-lg-11">
-                           <div className="row py-3">
-                              {this.state.menus.map((product, index) => {
-                                 return (
-                                    <Menu
-                                       image={product.image}
-                                       product_name={product.product_name}
-                                       price={product.price}
-                                       handleClick={() => this.handleClick(index)}
-                                       isChecked={this.state.isChecked}
-                                    />
-                                 )
-                              })}
-                           </div>
-                        </div> */}
                         <Menu
                            arrMenus={this.state.menus}
                            handleAddToCart={(id, name, price, img) => this.handleAddToCart(id, name, price, img)}
                         />
-                        {/* end of menu */}
                      </div>
                   </div>
-                  {/* cart */}
-                  {/* <RightSidebar
-                     cart={this.state.cart}
-                     totalPrice={this.state.totalPrice}
-                  /> */}
                   <RightSidebar
                      arrCarts={this.state.carts}
+                     totalPrice={this.state.totalPrice}
+                     handleEmptyCart={this.handleEmptyCart}
+                     handleIncreaseQty={(product_id) => {
+                        this.handleIncreaseQty(product_id)
+                     }}
+                     handleDecreaseQty={(product_id) => {
+                        this.handleDecreaseQty(product_id)
+                     }}
                   />
-                  {/* end of cart */}
                </div>
             </div>
          </>

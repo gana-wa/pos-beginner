@@ -106,13 +106,13 @@ const RightSidebar = (props) => {
                             <div className="col">
                                 <h5>{item.product_name}</h5>
                                 <div className="btn-group mt-auto" role="group" aria-label="Basic example">
-                                    <button type="button" className="btn btn-success">-</button>
+                                    <button type="button" className="btn btn-success" onClick={() => { props.handleDecreaseQty(item.product_id) }}>-</button>
                                     <h5 className="m-2">{item.quantity}</h5>
-                                    <button type="button" className="btn btn-success" >+</button>
+                                    <button type="button" className="btn btn-success" onClick={() => { props.handleIncreaseQty(item.product_id) }}>+</button>
                                 </div>
                             </div>
                             <div className="col d-flex">
-                                <h6 className="mt-auto ml-auto">Rp {item.price * item.quantity}</h6>
+                                <h6 className="mt-auto ml-auto">Rp {(item.price * item.quantity).toLocaleString()}</h6>
                             </div>
                         </div>
                     )
@@ -123,7 +123,9 @@ const RightSidebar = (props) => {
                     </div>
 
                     <div className="col d-flex">
-                        <h4 className="ml-auto font-weight-bold">Rp {props.totalPrice}*</h4>
+                        <h4 className="ml-auto font-weight-bold">Rp {props.arrCarts.reduce((total, item) => {
+                            return total + (item.price * item.quantity)
+                        }, 0).toLocaleString()}*</h4>
                     </div>
                 </div>
                 <div className="row mx-2">
@@ -142,9 +144,7 @@ const RightSidebar = (props) => {
                 </div>
                 <div className="row mx-2 my-2">
                     <div className="col">
-                        <button
-                            type="button"
-                            className="btn btn-danger btn-block btn-lg">
+                        <button type="button" className="btn btn-danger btn-block btn-lg" onClick={props.handleEmptyCart}>
                             Cancel
                     </button>
                     </div>
