@@ -13,16 +13,15 @@ class Home extends Component {
       super();
       this.state = {
          menus: [],
-         cart: [
+         carts: [
 
          ],
-         totalPrice: 0,
-         isChecked: false,
+         totalPrice: 0
       }
    }
 
-   fetchAllData = () => {
-      const URLString = "http://localhost:7000/products";
+   fetchAllProducts = () => {
+      const URLString = `${process.env.REACT_APP_API_ADDRES}/products`;
       Axios.get(URLString)
          .then((res) => {
             this.setState({
@@ -33,31 +32,53 @@ class Home extends Component {
    }
 
    componentDidMount = () => {
-      this.fetchAllData();
+      this.fetchAllProducts();
    }
 
-   handleClick = (index) => {
-      const { menus } = this.state;
-      const cart = [...this.state.cart];
-      // find 
-      let idClicked = menus[index].id;
-      if (cart.length === 0) {
-         cart.push(menus[index]);
-         cart[0].quantity = 1
+   handleAddToCart = (id, name, price, img) => {
+      const index = this.state.carts.findIndex((item) => {
+         return item.product_id === id;
+      });
+      if (index >= 0) {
+         this.state.carts.splice(index, 1);
+         this.setState({
+            carts: this.state.carts
+         })
       } else {
-         const updatedCart = cart.findIndex(item => item.id === idClicked);
-         console.log(updatedCart, 'pertama');
-         if (updatedCart === -1) {
-            cart.push(menus[index]);
-            cart[index].quantity = 1;
-         } else {
-            cart.splice(updatedCart, 1)
-         }
-         console.log(cart, 'kedua');
+         const newCart = {
+            product_id: id,
+            product_name: name,
+            quantity: 1,
+            price: price,
+            image: img,
+         };
+         this.setState({
+            carts: this.state.carts.concat(newCart)
+         });
       }
+   };
 
-      this.setState({ cart })
-   }
+   // handleClick = (index) => {
+   //    const { menus } = this.state;
+   //    const cart = [...this.state.cart];
+   //    // find 
+   //    let idClicked = menus[index].id;
+   //    if (cart.length === 0) {
+   //       cart.push(menus[index]);
+   //       cart[0].quantity = 1
+   //    } else {
+   //       const updatedCart = cart.findIndex(item => item.id === idClicked);
+   //       console.log(updatedCart, 'pertama');
+   //       if (updatedCart === -1) {
+   //          cart.push(menus[index]);
+   //          cart[index].quantity = 1;
+   //       } else {
+   //          cart.splice(updatedCart, 1)
+   //       }
+   //       console.log(cart, 'kedua');
+   //    }
+   //    this.setState({ cart });
+   // }
 
    render() {
       return (
@@ -68,7 +89,7 @@ class Home extends Component {
                      <HeaderHome />
                      <div className="row">
                         <LeftSidebar />
-                        <div className="col-lg-11">
+                        {/* <div className="col-lg-11">
                            <div className="row py-3">
                               {this.state.menus.map((product, index) => {
                                  return (
@@ -82,14 +103,21 @@ class Home extends Component {
                                  )
                               })}
                            </div>
-                        </div>
+                        </div> */}
+                        <Menu
+                           arrMenus={this.state.menus}
+                           handleAddToCart={(id, name, price, img) => this.handleAddToCart(id, name, price, img)}
+                        />
                         {/* end of menu */}
                      </div>
                   </div>
                   {/* cart */}
-                  <RightSidebar
+                  {/* <RightSidebar
                      cart={this.state.cart}
                      totalPrice={this.state.totalPrice}
+                  /> */}
+                  <RightSidebar
+                     arrCarts={this.state.carts}
                   />
                   {/* end of cart */}
                </div>
