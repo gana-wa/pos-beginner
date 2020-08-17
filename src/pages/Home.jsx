@@ -40,7 +40,7 @@ class Home extends Component {
          return item.product_id === id;
       });
       if (index >= 0) {
-         this.state.carts.splice(index);//hapus data pada array
+         this.state.carts.splice(index, 1);//hapus data pada array
          this.setState({
             carts: this.state.carts
          })
@@ -88,7 +88,7 @@ class Home extends Component {
          quantity: this.state.carts[index].quantity - 1
       }
       if (newCart[index].quantity === 0) {
-         this.state.carts.splice(index);//hapus data pada array
+         this.state.carts.splice(index, 1);//hapus data pada array
          this.setState({
             carts: this.state.carts
          })
