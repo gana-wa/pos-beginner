@@ -13,15 +13,13 @@ class Home extends Component {
       super();
       this.state = {
          menus: [],
-         carts: [
-
-         ],
+         carts: [],
          totalPrice: 0
       }
    }
 
    fetchAllProducts = () => {
-      const URLString = `${process.env.REACT_APP_API_ADDRES}/products`;
+      const URLString = `${process.env.REACT_APP_API_ADDRESS}/products`;
       Axios.get(URLString)
          .then((res) => {
             this.setState({
@@ -104,6 +102,7 @@ class Home extends Component {
          <>
             <div className="container-fluid">
                <div className="row">
+                  {/* kiri */}
                   <div className="col-md-8">
                      <HeaderHome />
                      <div className="row">
@@ -114,17 +113,20 @@ class Home extends Component {
                         />
                      </div>
                   </div>
-                  <RightSidebar
-                     arrCarts={this.state.carts}
-                     totalPrice={this.state.totalPrice}
-                     handleEmptyCart={this.handleEmptyCart}
-                     handleIncreaseQty={(product_id) => {
-                        this.handleIncreaseQty(product_id)
-                     }}
-                     handleDecreaseQty={(product_id) => {
-                        this.handleDecreaseQty(product_id)
-                     }}
-                  />
+                  {/* kanan */}
+                  <div className="col-md-4 border-left border-top">
+                     <RightSidebar
+                        arrCarts={this.state.carts}
+                        totalPrice={this.state.totalPrice}
+                        handleEmptyCart={this.handleEmptyCart}
+                        handleIncreaseQty={(product_id) => {
+                           this.handleIncreaseQty(product_id)
+                        }}
+                        handleDecreaseQty={(product_id) => {
+                           this.handleDecreaseQty(product_id)
+                        }}
+                     />
+                  </div>
                </div>
             </div>
          </>
