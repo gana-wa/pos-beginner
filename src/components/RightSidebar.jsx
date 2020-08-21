@@ -102,7 +102,6 @@ const RightSidebar = (props) => {
             arrCarts={props.arrCarts}
             showModal={show}
             handleClose={handleClose}
-            closeModal={handleClose}
             handleEmptyCart={props.handleEmptyCart}
          />
       </>

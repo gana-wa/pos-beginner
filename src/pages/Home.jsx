@@ -15,8 +15,8 @@ class Home extends Component {
          menus: [],
          carts: [],
          totalPrice: 0
-      }
-   }
+      };
+   };
 
    fetchAllProducts = () => {
       const URLString = `${process.env.REACT_APP_API_ADDRESS}/products`;
@@ -106,7 +106,9 @@ class Home extends Component {
                   <div className="col-md-8">
                      <HeaderHome />
                      <div className="row">
-                        <LeftSidebar />
+                        <LeftSidebar
+
+                        />
                         <Menu
                            arrMenus={this.state.menus}
                            handleAddToCart={(id, name, price, img) => this.handleAddToCart(id, name, price, img)}
