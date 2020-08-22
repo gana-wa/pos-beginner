@@ -29,7 +29,7 @@ const Menu = (props) => {
                                     item.price,
                                     item.image
                                 )
-                            }} alt="..." />
+                            }} alt={`gambar ${item.product_name}`} />
                             <h5>{item.product_name}</h5>
                             <h5 className="font-weight-bold">Rp {item.price.toLocaleString()}</h5>
                         </div>

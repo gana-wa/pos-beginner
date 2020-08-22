@@ -28,22 +28,36 @@ class ModalAddProduct extends Component {
     }
 
     insertProduct = () => {
-        // const URLString = `${process.env.REACT_APP_API_ADDRESS}/products`;
-        const data = {
-            product_name: this.state.name,
-            price: this.state.price,
-            category_id: this.state.category,
-            image: this.state.image,
+        let formData = new FormData();
+        formData.append("product_name", this.state.name);
+        formData.append("price", this.state.price);
+        formData.append("category_id", this.state.category);
+        formData.append("image", this.state.image);
+
+        const configHeader = {
+            headers: {
+                "content-type": "multipart/form-data",
+                // "x-access-token":
+                // "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhdnZmaXEiLCJsZXZlbF9pZCI6NCwiaWF0IjoxNTk3MjM3NDAyLCJleHAiOjE1OTczMjM4MDJ9.cOLO2mvbIfEdq0bxnKHoCX52uNS_uQh8E6raDgPlrJs",
+            }
         };
-        console.log(data);
+
+        const URLString = `${process.env.REACT_APP_API_ADDRESS}/products`;
+        console.log(formData);
+        this.setState({
+            name: null,
+            price: null,
+            category: null,
+            image: null,
+        })
         this.props.handleCloseModal();
 
-        // Axios.post(URLString, data)
-        //     .then((res) => {
-        //         console.log(res);
-        //         this.props.handleCloseModal();
-        //     })
-        //     .catch(err => console.log(err))
+        Axios.post(URLString, formData, configHeader)
+            .then((res) => {
+                console.log(res);
+                this.props.handleCloseModal();
+            })
+            .catch(err => console.log(err))
     };
 
     render() {
@@ -79,7 +93,7 @@ class ModalAddProduct extends Component {
                                     <Form.File
                                         id="image"
                                         onChange={(event) => {
-                                            this.setState({ image: event.target.image })
+                                            this.setState({ image: event.target.files[0] })
                                         }}
                                     />
                                 </Col>
