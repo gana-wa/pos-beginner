@@ -17,9 +17,11 @@ const LeftSidebar = (props) => {
         <>
             <div className="col-lg-1 bg-white shadow-sm">
                 <div className="row flex-lg-column justify-content-around py-2">
-                    <div className="col-auto my-lg-4">
-                        <img src={forkIcon} className="w-75" alt="" />
-                    </div>
+                    <Link to="/">
+                        <div className="col-auto my-lg-4">
+                            <img src={forkIcon} className="w-75" alt="" />
+                        </div>
+                    </Link>
                     <div className="col-auto my-lg-4">
                         <Link to="/history">
                             <img src={historyIcon} className="w-75" alt="" />
@@ -35,6 +37,7 @@ const LeftSidebar = (props) => {
             <ModalAddProduct
                 showModal={showModal}
                 handleCloseModal={handleCloseModal}
+                fetchAllProducts={props.fetchAllProducts}
             />
             {/* <AlertAddProduct
                 showAlert={showAlert}

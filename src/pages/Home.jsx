@@ -97,6 +97,11 @@ class Home extends Component {
       }
    };
 
+   handleSearch = (key) => {
+      const filtered = this.state.menus.filter(item => item.product_name.toLowerCase().indexOf(key.toLowerCase()) !== -1);
+      this.setState({ menus: filtered });
+   }
+
    render() {
       return (
          <>
@@ -104,10 +109,13 @@ class Home extends Component {
                <div className="row">
                   {/* kiri */}
                   <div className="col-md-8">
-                     <HeaderHome />
+                     <HeaderHome
+                        handleSearch={(key) => this.handleSearch(key)}
+                        fetchAllProducts={() => this.fetchAllProducts}
+                     />
                      <div className="row">
                         <LeftSidebar
-
+                           fetchAllProducts={this.fetchAllProducts}
                         />
                         <Menu
                            arrMenus={this.state.menus}

@@ -38,7 +38,7 @@ class ModalAddProduct extends Component {
             headers: {
                 "content-type": "multipart/form-data",
                 // "x-access-token":
-                // "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhdnZmaXEiLCJsZXZlbF9pZCI6NCwiaWF0IjoxNTk3MjM3NDAyLCJleHAiOjE1OTczMjM4MDJ9.cOLO2mvbIfEdq0bxnKHoCX52uNS_uQh8E6raDgPlrJs",
+                // "Bearer toke",
             }
         };
 
@@ -56,6 +56,7 @@ class ModalAddProduct extends Component {
             .then((res) => {
                 console.log(res);
                 this.props.handleCloseModal();
+                this.props.fetchAllProducts();
             })
             .catch(err => console.log(err))
     };
