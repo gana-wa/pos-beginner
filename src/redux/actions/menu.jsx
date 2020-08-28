@@ -8,6 +8,7 @@ export const fetchMenus = () => {
     }
 };
 
+// CART
 export const addToCart = (id, name, price, img) => {
     return {
         type: actions.MENU_TO_CART,
@@ -42,5 +43,11 @@ export const decreaseQuantityCreator = (id) => {
 export const clearCartCreator = () => {
     return {
         type: actions.CLEAR_CART,
+    }
+};
+
+export const totalPriceCreator = () => {
+    return {
+        type: actions.TOTAL_PRICE,
     }
 };

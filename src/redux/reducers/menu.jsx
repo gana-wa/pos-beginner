@@ -3,6 +3,7 @@ import * as actions from '../actions/actionTypes';
 const intialState = {
    menus: [],
    carts: [],
+   cashier: "Chelsea",
    totalPrice: 0,
    isPending: false,
    isFulfilled: false,
@@ -31,6 +32,7 @@ const menuReducer = (state = intialState, action) => {
             isPending: false,
             menus: action.payload.data.data,
          };
+      // CART
       case actions.MENU_TO_CART:
          const index = state.carts.findIndex((item) => {
             return action.payload.id === item.id;
