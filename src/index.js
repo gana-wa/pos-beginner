@@ -4,9 +4,19 @@ import './index.css';
 // import App from './App';
 import AppRouter from './AppRouter';
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import reduxStore from './redux/store';
+
+const AppWithRedux = () => {
+  return (
+    <Provider store={reduxStore}>
+      < AppRouter />,
+    </Provider>
+  )
+}
 
 ReactDOM.render(
-  < AppRouter />,
+  < AppWithRedux />,
   document.getElementById('root')
 );
 

@@ -28,9 +28,9 @@ const LeftSidebar = (props) => {
                         </Link>
                     </div>
                     <div className="col-auto my-lg-4">
-                        <Link>
-                            <img src={addIcon} className="w-75" alt="" onClick={handleShowModal} />
-                        </Link>
+                        {/* <Link> */}
+                        <img src={addIcon} className="w-75" alt="" onClick={handleShowModal} />
+                        {/* </Link> */}
                     </div>
                 </div>
             </div>

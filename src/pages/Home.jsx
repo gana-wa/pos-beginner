@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+// import Axios from 'axios';
+import { connect } from 'react-redux';
+import { fetchMenus } from '../redux/actions/menu';
 
 // components
 import Menu from '../components/Menu';
@@ -12,25 +14,14 @@ class Home extends Component {
    constructor() {
       super();
       this.state = {
-         menus: [],
+         // menus: [],
          carts: [],
          totalPrice: 0
       };
    };
 
-   fetchAllProducts = () => {
-      const URLString = `${process.env.REACT_APP_API_ADDRESS}/products`;
-      Axios.get(URLString)
-         .then((res) => {
-            this.setState({
-               menus: res.data.data
-            })
-         })
-         .catch(err => console.log(err))
-   }
-
    componentDidMount = () => {
-      this.fetchAllProducts();
+      this.props.fetchMenus();
    }
 
    handleAddToCart = (id, name, price, img) => {
@@ -117,10 +108,7 @@ class Home extends Component {
                         <LeftSidebar
                            fetchAllProducts={this.fetchAllProducts}
                         />
-                        <Menu
-                           arrMenus={this.state.menus}
-                           handleAddToCart={(id, name, price, img) => this.handleAddToCart(id, name, price, img)}
-                        />
+                        <Menu />
                      </div>
                   </div>
                   {/* kanan */}
@@ -141,7 +129,19 @@ class Home extends Component {
             </div>
          </>
       );
+   };
+};
+
+const mapStateToProps = (state) => {
+   return {
+      menus: state.menu.menus,
+   }
+};
+
+const mapDispatchToProps = (dispatch) => {
+   return {
+      fetchMenus: (menu) => dispatch(fetchMenus(menu))
    }
 }
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

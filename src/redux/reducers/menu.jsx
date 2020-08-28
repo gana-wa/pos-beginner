@@ -1,0 +1,92 @@
+import * as actions from '../actions/actionTypes';
+
+const intialState = {
+   menus: [],
+   carts: [],
+   totalPrice: 0,
+   isPending: false,
+   isFulfilled: false,
+   isRejected: false,
+}
+
+const menuReducer = (state = intialState, action) => {
+   let newCart = [...state.carts]
+   switch (action.type) {
+      case actions.MENU_FETCHED + actions.PENDING:
+         return {
+            ...state,
+            isPending: true,
+         };
+      case actions.MENU_FETCHED + actions.REJECTED:
+         return {
+            ...state,
+            isRejected: true,
+            isPending: false,
+            error: action.payload,
+         };
+      case actions.MENU_FETCHED + actions.FULFILLED:
+         return {
+            ...state,
+            isFulfilled: true,
+            isPending: false,
+            menus: action.payload.data.data,
+         };
+      case actions.MENU_TO_CART:
+         const index = state.carts.findIndex((item) => {
+            return action.payload.id === item.id;
+         });
+         if (index >= 0) {
+            state.carts.splice(index, 1);//hapus data pada array
+            return {
+               ...state,
+               carts: state.carts
+            }
+         } else {
+            return {
+               ...state,
+               carts: state.carts.concat(action.payload)
+            }
+         };
+      case actions.QUANTITY_INCREASED:
+         const indexQtyInc = state.carts.findIndex((item) => {
+            return action.payload.id === item.id;
+         });
+         newCart[indexQtyInc] = {
+            ...newCart[indexQtyInc],
+            quantity: state.carts[indexQtyInc].quantity + 1
+         }
+         return {
+            ...state,
+            carts: newCart,
+         };
+      case actions.QUANTITY_DECREASED:
+         const indexQtyDec = state.carts.findIndex((item) => {
+            return action.payload.id === item.id;
+         });
+         newCart[indexQtyDec] = {
+            ...newCart[indexQtyDec],
+            quantity: state.carts[indexQtyDec].quantity - 1
+         }
+         if (newCart[indexQtyDec].quantity === 0) {
+            state.carts.splice(indexQtyDec, 1);//hapus data pada array
+            return {
+               ...state,
+               carts: state.carts
+            }
+         } else {
+            return {
+               ...state,
+               carts: newCart,
+            };
+         };
+      case actions.CLEAR_CART:
+         return {
+            ...state,
+            carts: []
+         };
+      default:
+         return state;
+   }
+}
+
+export default menuReducer;
