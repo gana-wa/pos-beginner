@@ -45,9 +45,3 @@ export const clearCartCreator = () => {
         type: actions.CLEAR_CART,
     }
 };
-
-export const totalPriceCreator = () => {
-    return {
-        type: actions.TOTAL_PRICE,
-    }
-};

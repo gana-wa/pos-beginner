@@ -1,37 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Axios from 'axios';
 import { Modal, Button, Row, Col, Container } from 'react-bootstrap';
-import { totalPriceCreator } from '../redux/actions/menu';
+import { clearCartCreator } from '../redux/actions/menu';
 
 const ModalCheckout = (props) => {
-   // const [invoice, setInvoice] = useState(0);
-
-   // useEffect(() => {
-   //    setInvoice(new Date().getTime())
-   // }, [])
-
-   // class ModalCheckout extends Component {
-   // constructor(props) {
-   //     super(props);
-   //     this.state = {
-   //         invoice: new Date().getTime(),
-   //         cashier: "Chelsea",
-   //     }
-   // };
-   // state = {
-   //     invoice: new Date().getTime(),
-   // }
-
    let invoice = new Date().getTime();
 
    let totalAll = props.menu.carts.reduce((total, item) => { return total + (item.price * item.quantity * 0.1) + (item.price * item.quantity) }, 0);
-
-   // const totalPrice = () => {
-   //    return (
-   //       props.menu.carts.reduce((total, item) => { return total + (item.price * item.quantity * 0.1) + (item.price * item.quantity) }, 0)
-   //    );
-   // };
 
    const insertTransaction = () => {
       const transactionItem = props.menu.carts.map((item) => {
@@ -47,17 +23,16 @@ const ModalCheckout = (props) => {
          total: totalAll,
          transaction: transactionItem,
       };
-      console.log(data);
-      // Axios.post(URLString, data)
-      //    .then((res) => {
-      //       console.log(res);
-      //       this.props.handleEmptyCart();
-      //       this.props.handleClose();
-      //    })
-      //    .catch(err => console.log(err))
+      // console.log(data);
+      Axios.post(URLString, data)
+         .then((res) => {
+            // console.log(res);
+            props.clearCart();
+            props.handleClose();
+         })
+         .catch(err => console.log(err))
    };
 
-   // render() {
    return (
       <Modal show={props.showModal} onHide={props.handleClose} centered>
          <Modal.Body>
@@ -111,7 +86,6 @@ const ModalCheckout = (props) => {
          </Modal.Body>
       </Modal>
    );
-   // }
 };
 
 const mapStateToProps = (state) => {
@@ -122,7 +96,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      totalPriceAction: () => dispatch(totalPriceCreator()),
+      clearCart: () => dispatch(clearCartCreator())
    }
 }
 

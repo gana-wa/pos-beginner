@@ -102,10 +102,8 @@ const RightSidebar = (props) => {
             </div>
          </div>
          <ModalCheckout
-            arrCarts={props.arrCarts}
             showModal={show}
             handleClose={handleClose}
-            handleEmptyCart={props.handleEmptyCart}
          />
       </>
    );
