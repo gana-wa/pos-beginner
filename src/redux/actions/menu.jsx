@@ -8,6 +8,17 @@ export const fetchMenus = () => {
     }
 };
 
+// SEARCH
+
+export const searchMenu = (key) => {
+    return {
+        type: actions.SEARCH_MENU,
+        payload: {
+            key: key,
+        }
+    }
+}
+
 // CART
 export const addToCart = (id, name, price, img) => {
     return {

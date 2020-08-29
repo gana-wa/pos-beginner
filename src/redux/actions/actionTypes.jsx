@@ -6,6 +6,7 @@ export const QUANTITY_DECREASED = 'quantityDecreased';
 export const MENU_TO_CART = 'addToCart';
 export const CLEAR_CART = 'emptyCart';
 export const TOTAL_PRICE = 'totalPrice';
+export const SEARCH_MENU = 'searchMenu';
 
 export const PENDING = `_${ActionType.Pending}`;
 export const FULFILLED = `_${ActionType.Fulfilled}`;

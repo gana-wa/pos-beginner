@@ -13,6 +13,7 @@ const intialState = {
 const menuReducer = (state = intialState, action) => {
    let newCart = [...state.carts]
    switch (action.type) {
+      // FETCH MENU
       case actions.MENU_FETCHED + actions.PENDING:
          return {
             ...state,
@@ -32,6 +33,12 @@ const menuReducer = (state = intialState, action) => {
             isPending: false,
             menus: action.payload.data.data,
          };
+      // SEARCH
+      case actions.SEARCH_MENU:
+         return {
+            ...state,
+            menus: action.payload.key
+         }
       // CART
       case actions.MENU_TO_CART:
          const index = state.carts.findIndex((item) => {

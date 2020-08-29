@@ -92,7 +92,7 @@ const RightSidebar = (props) => {
       <>
          <div className="row navbar-light bg-white p-3 border-bottom">
             <div className="col text-center">
-               <h4 className="">Cart&nbsp;<span className="badge badge-pill badge-info">{props.arrCarts.length}</span>
+               <h4 className="">Cart&nbsp;<span className="badge badge-pill badge-info">{props.menu.carts.length}</span>
                </h4>
             </div>
          </div>
