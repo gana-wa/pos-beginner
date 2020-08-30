@@ -1,17 +1,47 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Card, CardDeck, Container, Table } from 'react-bootstrap';
 import moment from 'moment';
+import { Row, Col, Card, CardDeck, Container, Table } from 'react-bootstrap';
+import { Line } from 'react-chartjs-2';
 
 const HistoryMainContent = (props) => {
-
+   // 3 card
    let getThisDay = new Date().toJSON().split("T", 1).toString();
    let todayHistory = props.history.showHistory.filter(item => item.date.split("T", 1).indexOf(getThisDay) !== -1);
    let todayIncome = todayHistory.reduce((total, item) => { return total + item.total }, 0);
 
    let getThisYear = new Date().toJSON().split("-", 1).toString();
    let thisYearHistory = props.history.showHistory.filter(item => item.date.split("-", 1).indexOf(getThisYear) !== -1);
-   let thisYearIncome = thisYearHistory.reduce((total, item) => { return total + item.total }, 0)
+   let thisYearIncome = thisYearHistory.reduce((total, item) => { return total + item.total }, 0);
+
+   // chart data
+   const data = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+         {
+            label: 'This Month',
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: 'rgba(75,192,192,0.4)',
+            borderColor: 'rgba(75,192,192,1)',
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: 'rgba(75,192,192,1)',
+            pointBackgroundColor: '#fff',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+            pointHoverBorderColor: 'rgba(220,220,220,1)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [65, 59, 80, 81, 56, 55, 40]
+         }
+      ]
+   };
+
 
    return (
       <div className="col-lg-11 ">
@@ -57,8 +87,22 @@ const HistoryMainContent = (props) => {
                <Col>
                   <Card bg="light" className="shadow-lg">
                      <Card.Body>
-                        <h3>Revenue</h3>
-                        <p>Chart</p>
+                        <Row>
+                           <Col>
+                              <h3>Revenue</h3>
+                           </Col>
+                           <Col xs="5" sm="3" md="2" lg="2" xl="1">
+                              <select id="inputState" defaultValue="month" className="form-control btn-sm btn-secondary float-right">
+                                 <option value="month">Month</option>
+                                 <option>...</option>
+                              </select>
+                           </Col>
+                        </Row>
+                        <Row>
+                           <Col>
+                              <Line data={data} />
+                           </Col>
+                        </Row>
                      </Card.Body>
                   </Card>
                </Col>
