@@ -1,30 +1,17 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import Axios from 'axios';
+import { connect } from 'react-redux';
+import { fetchHistoryCreator, showHistoryCreator } from '../redux/actions/history';
 // components
 import HeaderHistory from '../components/HeaderHistory';
 import LeftSidebar from '../components/LeftSidebar';
 import HistoryMainContent from '../components/HistoryMainContent';
 
 class History extends Component {
-    constructor() {
-        super()
-        this.state = {
-            history: []
-        }
-    }
 
     componentDidMount = () => {
-        this.fetchAllHistory();
-    }
-
-    fetchAllHistory = () => {
-        const URL = `${process.env.REACT_APP_API_ADDRESS}/history`;
-        Axios.get(URL)
-            .then((res) => {
-                this.setState({ history: res.data.data })
-            })
-            .catch(err => console.log(err))
+        this.props.fetchAllHistory();
+        this.props.showHistory();
     }
 
     render() {
@@ -37,14 +24,20 @@ class History extends Component {
                 </Row>
                 <Row>
                     <LeftSidebar />
-                    <HistoryMainContent
-                        history={this.state.history}
-                    />
+                    <HistoryMainContent />
                 </Row>
             </Container>
 
         );
     }
+};
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchAllHistory: () => dispatch(fetchHistoryCreator()),
+        showHistory: () => dispatch(showHistoryCreator())
+    }
 }
 
-export default History;
+export default connect(null, mapDispatchToProps)(History);

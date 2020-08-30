@@ -9,7 +9,6 @@ export const fetchMenus = () => {
 };
 
 // SEARCH
-
 export const searchMenu = (key) => {
     return {
         type: actions.SEARCH_MENU,

@@ -8,6 +8,9 @@ export const CLEAR_CART = 'emptyCart';
 export const TOTAL_PRICE = 'totalPrice';
 export const SEARCH_MENU = 'searchMenu';
 
+export const HISTORY_FETCHED = 'historyFetched';
+export const SHOW_HISTORY = 'showHistory';
+
 export const PENDING = `_${ActionType.Pending}`;
 export const FULFILLED = `_${ActionType.Fulfilled}`;
 export const REJECTED = `_${ActionType.Rejected}`;

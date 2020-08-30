@@ -31,7 +31,7 @@ class Home extends Component {
                   <div className="col-md-8">
                      <HeaderHome
                         handleSearch={(key) => this.handleSearch(key)}
-                        fetchAllProducts={() => this.fetchAllProducts}
+                     // fetchAllProducts={() => this.fetchAllProducts}
                      />
                      <div className="row">
                         <LeftSidebar />

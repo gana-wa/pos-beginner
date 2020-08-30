@@ -4,7 +4,6 @@ const intialState = {
    menus: [],
    carts: [],
    cashier: "Chelsea",
-   totalPrice: 0,
    isPending: false,
    isFulfilled: false,
    isRejected: false,
