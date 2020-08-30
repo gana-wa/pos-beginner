@@ -10,20 +10,23 @@ const HistoryMainContent = (props) => {
    let todayHistory = props.history.showHistory.filter(item => item.date.split("T", 1).indexOf(getThisDay) !== -1);
    let todayIncome = todayHistory.reduce((total, item) => { return total + item.total }, 0);
 
+   let getThisMonth = new Date().toJSON().split("-", 2).join("-");
+   let thisMonthHistory = props.history.showHistory.filter(item => item.date.split("-", 2).join("-").indexOf(getThisMonth) !== -1);
+
    let getThisYear = new Date().toJSON().split("-", 1).toString();
    let thisYearHistory = props.history.showHistory.filter(item => item.date.split("-", 1).indexOf(getThisYear) !== -1);
    let thisYearIncome = thisYearHistory.reduce((total, item) => { return total + item.total }, 0);
 
    // chart data
-   const data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+   const ChartData = {
+      labels: props.history.showHistory.map(item => [moment(item.date).format('DD-MM-YY')]),
       datasets: [
          {
             label: 'This Month',
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: 'rgba(75,192,192,1)',
+            borderColor: '#00F1FF',
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
@@ -37,7 +40,7 @@ const HistoryMainContent = (props) => {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40]
+            data: thisMonthHistory.map(item => item.total),
          }
       ]
    };
@@ -100,7 +103,7 @@ const HistoryMainContent = (props) => {
                         </Row>
                         <Row>
                            <Col>
-                              <Line data={data} />
+                              <Line data={ChartData} />
                            </Col>
                         </Row>
                      </Card.Body>
