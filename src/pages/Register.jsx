@@ -8,7 +8,7 @@ const Register = (props) => {
    const [status, setStatus] = useState("")
    const [formResponse, setFormRespone] = useState({});
    const dispatch = useDispatch();
-   const { isLoggedIn, msg } = useSelector(
+   const { msg } = useSelector(
       (state) => state.auth
    );
 
@@ -41,7 +41,7 @@ const Register = (props) => {
                name="username"
                onChange={(event) => {
                   const { name, value } = event.target;
-                  setFormRespone({ ...formResponse, [name]: value })
+                  setFormRespone({ ...formResponse, [name]: value, level_id: 2 })
                }}
                required autoFocus
             />
@@ -53,7 +53,7 @@ const Register = (props) => {
                name="password"
                onChange={(event) => {
                   const { name, value } = event.target;
-                  setFormRespone({ ...formResponse, [name]: value })
+                  setFormRespone({ ...formResponse, [name]: value, level_id: 2 })
                }}
                required />
             <p className="text-danger">{status}</p>
