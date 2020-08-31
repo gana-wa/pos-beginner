@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Axios from 'axios';
 import { Modal, Button, Row, Col, Container } from 'react-bootstrap';
-import { clearCartCreator } from '../redux/actions/menu';
+import { clearCartCreator, fetchMenus } from '../redux/actions/menu';
 
 const ModalCheckout = (props) => {
    let invoice = new Date().getTime();
@@ -30,6 +30,7 @@ const ModalCheckout = (props) => {
             // console.log(res);
             props.clearCart();
             props.handleClose();
+            props.fetchMenus();
          })
          .catch(err => console.log(err))
    };
@@ -98,7 +99,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      clearCart: () => dispatch(clearCartCreator())
+      clearCart: () => dispatch(clearCartCreator()),
+      fetchMenus: () => dispatch(fetchMenus()),
    }
 }
 

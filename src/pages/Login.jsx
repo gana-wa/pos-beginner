@@ -69,12 +69,12 @@ const Login = (props) => {
                            className="btn btn-lg btn-primary btn-block"
                            type="submit"
                         >Sign in</button>
-                        {/* <Link to="/register">
+                        <Link to="/register">
                            <button
                               className="btn btn-lg btn-light btn-block"
 
                            >Register</button>
-                        </Link> */}
+                        </Link>
                      </form>
                   </div >
                )

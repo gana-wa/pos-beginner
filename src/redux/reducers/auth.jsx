@@ -52,6 +52,37 @@ const authReducer = (state = intialState, action) => {
                     msg: action.payload.data.data.msg,
                 };
             }
+        case actions.REGISTERED + actions.PENDING:
+            return {
+                ...state,
+                isPeding: true,
+                msg: "...Loading",
+            };
+        case actions.REGISTERED + actions.REJECTED:
+            return {
+                ...state,
+                isRejected: true,
+                isPending: false,
+                msg: action.payload.data.data.msg,
+            };
+        case actions.REGISTERED + actions.FULFILLED:
+            if (action.payload.data.isSuccess) {
+                return {
+                    ...state,
+                    isLoggedIn: false,
+                    isSuccess: true,
+                    isPending: false,
+                    msg: `${action.payload.data.data.msg}, now you can login`
+                };
+            } else {
+                return {
+                    ...state,
+                    isSuccess: false,
+                    isPending: false,
+                    isLoggedIn: false,
+                    msg: action.payload.data.data.msg,
+                };
+            }
         default:
             return state;
     }
