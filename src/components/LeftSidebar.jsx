@@ -6,11 +6,12 @@ import ModalAddProduct from './ModalAddProduct';
 import addIcon from '../assets/img/add.png';
 import historyIcon from '../assets/img/clipboard.png';
 import forkIcon from '../assets/img/fork.png';
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 const LeftSidebar = (props) => {
+    const auth = useSelector((state) => state.auth)
     const [showModal, setShowModal] = useState(false);
-
     const handleShowModal = () => setShowModal(true);
     const handleCloseModal = () => setShowModal(false);
     return (
@@ -22,16 +23,20 @@ const LeftSidebar = (props) => {
                             <img src={forkIcon} className="w-75" alt="" />
                         </div>
                     </Link>
-                    <div className="col-auto my-lg-4">
-                        <Link to="/history">
-                            <img src={historyIcon} className="w-75" alt="" />
-                        </Link>
-                    </div>
-                    <div className="col-auto my-lg-4">
-                        {/* <Link> */}
-                        <img src={addIcon} className="w-75" alt="" onClick={handleShowModal} />
-                        {/* </Link> */}
-                    </div>
+                    {Number(auth.user.level_id) === 1 ? (
+                        <>
+                            <div className="col-auto my-lg-4">
+                                <Link to="/history">
+                                    <img src={historyIcon} className="w-75" alt="" />
+                                </Link>
+                            </div>
+                            <div className="col-auto my-lg-4">
+                                {/* <Link> */}
+                                <img src={addIcon} className="w-75" alt="" onClick={handleShowModal} />
+                                {/* </Link> */}
+                            </div>
+                        </>
+                    ) : ""}
                 </div>
             </div>
             <ModalAddProduct
@@ -39,6 +44,7 @@ const LeftSidebar = (props) => {
                 handleCloseModal={handleCloseModal}
                 fetchAllProducts={props.fetchAllProducts}
             />
+
             {/* <AlertAddProduct
                 showAlert={showAlert}
                 setShowAlert={setShowAlert}

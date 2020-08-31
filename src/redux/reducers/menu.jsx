@@ -3,7 +3,7 @@ import * as actions from '../actions/actionTypes';
 const intialState = {
    menus: [],
    carts: [],
-   cashier: "Chelsea",
+   cashier: "",
    isPending: false,
    isFulfilled: false,
    isRejected: false,

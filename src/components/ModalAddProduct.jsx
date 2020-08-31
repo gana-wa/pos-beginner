@@ -56,7 +56,7 @@ class ModalAddProduct extends Component {
             .then((res) => {
                 console.log(res);
                 this.props.handleCloseModal();
-                this.props.fetchAllProducts();
+                // this.props.fetchAllProducts();
             })
             .catch(err => console.log(err))
     };

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addToCart } from '../redux/actions/menu';
 
-import './styles/Menu.css';
+// import './styles/Menu.css';
 // import tick from '../assets/img/tick.png';
 
 const Menu = (props) => {

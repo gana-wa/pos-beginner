@@ -19,7 +19,8 @@ const ModalCheckout = (props) => {
       const URLString = `${process.env.REACT_APP_API_ADDRESS}/transaction`;
       const data = {
          invoice: invoice,
-         cashier: props.menu.cashier,
+         // cashier: props.menu.cashier,
+         cashier: props.auth.user.username,
          total: totalAll,
          transaction: transactionItem,
       };
@@ -90,7 +91,8 @@ const ModalCheckout = (props) => {
 
 const mapStateToProps = (state) => {
    return {
-      menu: state.menu
+      menu: state.menu,
+      auth: state.auth,
    }
 };
 
