@@ -5,7 +5,7 @@ import { registered } from '../redux/actions/auth';
 
 const Register = (props) => {
    const [isRegistered, setRegistered] = useState(false);
-   const [status, setStatus] = useState("")
+   const [status, setStatus] = useState("");
    const [formResponse, setFormRespone] = useState({});
    const dispatch = useDispatch();
    const { msg } = useSelector(

@@ -10,7 +10,8 @@ const intialState = {
 }
 
 const menuReducer = (state = intialState, action) => {
-   let newCart = [...state.carts]
+   let newCart = [...state.carts];
+   let newMenu = [...state.menus];
    switch (action.type) {
       // FETCH MENU
       case actions.MENU_FETCHED + actions.PENDING:
@@ -23,7 +24,7 @@ const menuReducer = (state = intialState, action) => {
             ...state,
             isRejected: true,
             isPending: false,
-            error: action.payload,
+            error: action.payload.menu,
          };
       case actions.MENU_FETCHED + actions.FULFILLED:
          return {
@@ -43,16 +44,29 @@ const menuReducer = (state = intialState, action) => {
          const index = state.carts.findIndex((item) => {
             return action.payload.id === item.id;
          });
+         const indexMenu = state.menus.findIndex((item) => {
+            return action.payload.id === item.product_id;
+         });
          if (index >= 0) {
+            newMenu[indexMenu] = {
+               ...newMenu[indexMenu],
+               selected: false,
+            }
             state.carts.splice(index, 1);//hapus data pada array
             return {
                ...state,
-               carts: state.carts
+               carts: state.carts,
+               menus: newMenu,
             }
          } else {
+            newMenu[indexMenu] = {
+               ...newMenu[indexMenu],
+               selected: true,
+            }
             return {
                ...state,
-               carts: state.carts.concat(action.payload)
+               carts: state.carts.concat(action.payload),
+               menus: newMenu,
             }
          };
       case actions.QUANTITY_INCREASED:
@@ -90,7 +104,7 @@ const menuReducer = (state = intialState, action) => {
       case actions.CLEAR_CART:
          return {
             ...state,
-            carts: []
+            carts: [],
          };
       default:
          return state;
