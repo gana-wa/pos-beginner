@@ -19,7 +19,7 @@ const Login = (props) => {
          setLogIn(false);
          setStatus(msg);
       }
-   }, [logIn]);
+   }, [logIn, dispatch, formResponse, msg]);
 
    useEffect(() => {
       if (msg) {

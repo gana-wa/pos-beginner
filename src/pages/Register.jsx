@@ -18,7 +18,7 @@ const Register = (props) => {
          setRegistered(false);
          setStatus(msg);
       }
-   }, [isRegistered]);
+   }, [isRegistered, dispatch, formResponse, msg]);
 
    useEffect(() => {
       if (msg) {

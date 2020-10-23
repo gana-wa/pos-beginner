@@ -5,12 +5,15 @@ import './index.css';
 import AppRouter from './AppRouter';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import reduxStore from './redux/store';
+import { store, persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react'
 
 const AppWithRedux = () => {
   return (
-    <Provider store={reduxStore}>
-      < AppRouter />,
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        < AppRouter />,
+      </PersistGate>
     </Provider>
   )
 }

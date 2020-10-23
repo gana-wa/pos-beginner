@@ -24,7 +24,7 @@ class Home extends Component {
    render() {
       return (
          <>
-            <div className="container-fluid">
+            <div className="container-fluid rex">
                <div className="row">
                   {/* kiri */}
                   <div className="col-md-8">
