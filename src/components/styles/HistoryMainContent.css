@@ -1,0 +1,20 @@
+.card-today-income {
+   background: linear-gradient(278.29deg, #FBB2B4 30.05%, rgba(255, 143, 178, 0) 133.19%);
+   filter: drop-shadow(10px 15px 10px rgba(255, 143, 178, 0.25));
+   border-radius: 10px;
+   border: 0;
+}
+
+.card-order {
+   background: linear-gradient(278.29deg, #29DFFF 30.05%, rgba(41, 223, 255, 0) 133.19%);
+   filter: drop-shadow(10px 15px 10px rgba(41, 223, 255, 0.25));
+   border-radius: 10px;
+   border: 0;
+}
+
+.card-year-income {
+   background: linear-gradient(278.29deg, #AB84C8 30.05%, rgba(241, 201, 236, 0) 133.19%);
+   filter: drop-shadow(10px 15px 10px rgba(241, 201, 236, 0.25));
+   border-radius: 10px;
+   border: 0;
+}

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Row, Col, Card, CardDeck, Container, Table } from 'react-bootstrap';
 import { Line } from 'react-chartjs-2';
+import './styles/HistoryMainContent.css';
 
 const HistoryMainContent = (props) => {
    // 3 card
@@ -53,7 +54,7 @@ const HistoryMainContent = (props) => {
             <Row>
                <CardDeck className="my-3 w-100">
                   <Col md={4} className="mb-3">
-                     <Card bg="danger" className="shadow">
+                     <Card className="card-today-income">
                         <Card.Body>
                            <h6>Today’s Income</h6>
                            <h3>Rp&nbsp;{todayIncome.toLocaleString()}</h3>
@@ -62,7 +63,7 @@ const HistoryMainContent = (props) => {
                      </Card>
                   </Col>
                   <Col md={4} className="mb-3">
-                     <Card bg="primary" className="shadow">
+                     <Card className="card-order">
                         <Card.Body>
                            <h6>Orders</h6>
                            <h3>
@@ -73,7 +74,7 @@ const HistoryMainContent = (props) => {
                      </Card>
                   </Col>
                   <Col md={4} className="mb-3">
-                     <Card bg="info" className="shadow">
+                     <Card className="card-year-income">
                         <Card.Body>
                            <h6>This Year’s Income</h6>
                            <h3>Rp {thisYearIncome.toLocaleString()}</h3>
