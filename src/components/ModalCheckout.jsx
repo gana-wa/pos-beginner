@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Axios from 'axios';
 import { Modal, Button, Row, Col, Container } from 'react-bootstrap';
 import { clearCartCreator, fetchMenus } from '../redux/actions/menu';
+import './styles/ModalCheckout.css'
 
 const ModalCheckout = (props) => {
    let invoice = new Date().getTime();
@@ -44,7 +45,7 @@ const ModalCheckout = (props) => {
                   <Col xs={8}><h6 className="text-right">Receipt no: #{invoice}</h6></Col>
                </Row>
                <Row>
-                  <Col><p>Cashier : {props.menu.cashier}</p></Col>
+                  <Col><h6 className="text-cashier">Cashier : {props.auth.user.username}</h6></Col>
                </Row>
                {props.menu.carts.map((item) => {
                   return (
@@ -77,11 +78,11 @@ const ModalCheckout = (props) => {
                </Row>
                <Row className="flex-column">
                   <Col>
-                     <Button variant="danger" onClick={() => { insertTransaction() }} block><h5>Print</h5></Button>
+                     <Button variant="danger" className="btn-print" onClick={() => { insertTransaction() }} block><h5>Print</h5></Button>
                   </Col>
                   <Col><h6 className="text-center">Or</h6></Col>
                   <Col>
-                     <Button variant="info" onClick={props.handleClose} block><h5>Send Email</h5></Button>
+                     <Button variant="info" className="btn-send-email" onClick={props.handleClose} block><h5>Send Email</h5></Button>
                   </Col>
                </Row>
             </Container>
