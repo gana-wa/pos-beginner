@@ -1,0 +1,29 @@
+.container-btn-group {
+   display: flex;
+}
+
+.btn-counter {
+   background-color: rgba(130, 222, 58, 0.2);
+   border: 1px solid #82DE3A;
+   border-radius: 0;
+   color: #82DE3A;
+   font-weight: bold;
+   font-size: 30px;
+   width: 35px;
+   height: 30px;
+   line-height: 0%;
+}
+
+.qty-text-container {
+   height: 100px;
+   width: 100%;
+}
+
+.qty-text {
+   width: 35px;
+   height: 30px;
+   border: 1px solid #82DE3A;
+   color: #82DE3A;
+   align-self: center;
+   line-height: 30px;
+}

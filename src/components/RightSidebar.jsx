@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { increaseQuantityCreator, decreaseQuantityCreator, clearCartCreator } from '../redux/actions/menu';
+import './styles/RightSidebar.css';
 
 import logoCart from '../assets/img/food.png';
 import ModalCheckout from './ModalCheckout';
@@ -22,17 +23,19 @@ const RightSidebar = (props) => {
                               <img src={item.img} className="w-75 rounded-lg" alt="" />
                            </div>
                            <div className="col">
-                              <h5>
+                              <h5 className="text-left">
                                  {item.name.split(' ', 2).map(el => `${el} `)}
                               </h5>
-                              <div className="btn-group mt-auto" role="group" aria-label="Basic example">
-                                 <button type="button" className="btn btn-success" onClick={() => { props.decreaseQuantityAction(item.id) }}>-</button>
-                                 <h5 className="my-2 mx-3">{item.quantity}</h5>
-                                 <button type="button" className="btn btn-success" onClick={() => { props.increaseQuantityAction(item.id) }}>+</button>
+                              <div className="container-btn-group mt-auto" role="group" aria-label="Basic example">
+                                 <button type="button" className="btn-success btn-counter" onClick={() => { props.decreaseQuantityAction(item.id) }}>-</button>
+                                 <h5 className="qty-text">{item.quantity}</h5>
+                                 {/* <div className="qty-text-container">
+                                 </div> */}
+                                 <button type="button" className="btn-success btn-counter" onClick={() => { props.increaseQuantityAction(item.id) }}>+</button>
                               </div>
                            </div>
                            <div className="col d-flex ">
-                              <h6 className="mt-auto ml-auto">Rp {(item.price * item.quantity).toLocaleString()}</h6>
+                              <h6 className="mt-auto ml-auto">Rp {(item.price * item.quantity).toLocaleString('id-ID')}</h6>
                            </div>
                         </div>
                      )
