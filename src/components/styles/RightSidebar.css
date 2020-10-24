@@ -27,3 +27,15 @@
    align-self: center;
    line-height: 30px;
 }
+
+.btn-checkout {
+   background-color: #57CAD5;
+   border: 0;
+   border-radius: 0;
+}
+
+.btn-cancel {
+   background-color: #F24F8A;
+   border: 0;
+   border-radius: 0;
+}

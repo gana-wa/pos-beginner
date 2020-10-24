@@ -63,7 +63,7 @@ const RightSidebar = (props) => {
                      <div className="col">
                         <button
                            type="button"
-                           className="btn btn-info btn-block btn-lg"
+                           className="btn btn-info btn-block btn-lg btn-checkout"
                            onClick={handleShow}
                         >
                            Checkout
@@ -72,7 +72,7 @@ const RightSidebar = (props) => {
                   </div>
                   <div className="row mx-2 my-2">
                      <div className="col">
-                        <button type="button" className="btn btn-danger btn-block btn-lg" onClick={props.clearCart}>
+                        <button type="button" className="btn btn-danger btn-block btn-lg btn-cancel" onClick={props.clearCart}>
                            Cancel
                         </button>
                      </div>
